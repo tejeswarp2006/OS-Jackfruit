@@ -27,7 +27,7 @@ It simulates how container engines (like Docker) work internally by building fea
 
 ## 🏗️ System Architecture
 
-\`\`\`
+```
 User (CLI)
    ↓
 Engine (CLI Tool)
@@ -37,8 +37,7 @@ Supervisor Process
 Containers (Namespaces + chroot)
    ↓
 Kernel Module (Memory Monitor)
-\`\`\`
-
+```
 ---
 
 ## 🛠️ Setup & Execution Guide
@@ -139,7 +138,7 @@ sudo make clean
 ## 📸 Demo Description
 
 - Multiple containers running under one supervisor  
-- \`engine ps\` shows metadata and states  
+- `engine ps` shows metadata and states  
 - Logs captured using bounded-buffer system  
 - IPC communication via UNIX sockets  
 - Memory limits enforced via kernel module  
@@ -155,7 +154,7 @@ sudo make clean
 - PID Namespace → Isolates process IDs  
 - UTS Namespace → Custom hostname  
 - Mount Namespace → Isolated filesystem view  
-- \`chroot\` → Restricts root directory  
+- `chroot` → Restricts root directory  
 
 ---
 
@@ -163,7 +162,7 @@ sudo make clean
 
 - Single long-running supervisor process  
 - Manages container creation and cleanup  
-- Uses \`waitpid()\` to prevent zombie processes  
+- Uses `waitpid()` to prevent zombie processes  
 
 ---
 
@@ -185,7 +184,7 @@ sudo make clean
 
 ### 🔸 Scheduling (CFS)
 
-- \`nice\` controls CPU priority  
+- `nice` controls CPU priority  
 
 | Nice Value | Effect |
 |-----------|--------|
@@ -204,7 +203,7 @@ sudo make clean
 
 ## 📂 Project Structure
 
-\`\`\`
+```
 boilerplate/
 ├── engine.c
 ├── monitor.c
@@ -213,7 +212,7 @@ boilerplate/
 ├── io_pulse.c
 ├── memory_hog.c
 ├── Makefile
-\`\`\`
+```
 
 ---
 
