@@ -45,40 +45,39 @@ Kernel Module (Memory Monitor)
 
 ### 🔹 1. Prerequisites
 
-\`\`\`bash
+```bash
 sudo apt update
 sudo apt install -y build-essential linux-headers-\$(uname -r)
-\`\`\`
+```
 
 ---
 
 ### 🔹 2. Build Project
 
-\`\`\`bash
+```bash
 cd boilerplate
 make
-\`\`\`
+```
 
 (Optional check)
 
-\`\`\`bash
+```bash
 make -C boilerplate ci
-\`\`\`
-
+```
 ---
 
 ### 🔹 3. Load Kernel Module
 
-\`\`\`bash
+```bash
 sudo insmod monitor.ko
 ls -l /dev/container_monitor
-\`\`\`
+```
 
 ---
 
 ### 🔹 4. Setup Root Filesystem
 
-\`\`\`bash
+```bash
 mkdir -p rootfs-base
 
 wget https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-minirootfs-3.20.3-x86_64.tar.gz
@@ -87,21 +86,21 @@ tar -xzf alpine-minirootfs-3.20.3-x86_64.tar.gz -C rootfs-base
 
 cp -a rootfs-base rootfs-alpha
 cp -a rootfs-base rootfs-beta
-\`\`\`
+```
 
 ---
 
 ### 🔹 5. Start Supervisor (Terminal 1)
 
-\`\`\`bash
+```bash
 sudo ./engine supervisor ./rootfs-base
-\`\`\`
+```
 
 ---
 
 ### 🔹 6. Run Containers (Terminal 2)
 
-\`\`\`bash
+```bash
 # Start containers
 sudo ./engine start alpha ./rootfs-alpha "/bin/sh" --soft-mib 48 --hard-mib 80
 sudo ./engine start beta ./rootfs-beta "/bin/sh" --soft-mib 64 --hard-mib 96
@@ -111,21 +110,21 @@ sudo ./engine ps
 sudo ./engine logs alpha
 sudo ./engine stop alpha
 sudo ./engine stop beta
-\`\`\`
+```
 
 ---
 
 ### 🔹 7. Foreground Execution
 
-\`\`\`bash
+```bash
 sudo ./engine run gamma ./rootfs-alpha "./cpu_hog" --nice 10
-\`\`\`
+```
 
 ---
 
 ### 🔹 8. Cleanup
 
-\`\`\`bash
+```bash
 sudo ./engine stop alpha
 sudo ./engine stop beta
 
@@ -133,7 +132,7 @@ dmesg | tail -n 50
 
 sudo rmmod monitor
 sudo make clean
-\`\`\`
+```
 
 ---
 
